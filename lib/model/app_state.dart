@@ -1,5 +1,7 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'movie.dart';
 import 'serializers.dart';
 
 part 'app_state.g.dart';
@@ -20,9 +22,11 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   static Serializer<AppState> get serializer => _$appStateSerializer;
 
-  static void _initializeBuilder(AppStateBuilder b) {
-    b.count = 0;
-  }
+  BuiltList<Movie>? get popular ;
 
-  int? get count;
+  BuiltList<Movie>? get topRated;
+
+  BuiltList<Movie>? get upcoming;
 }
+
+

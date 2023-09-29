@@ -19,11 +19,29 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.count;
+    value = object.popular;
     if (value != null) {
       result
-        ..add('count')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add('popular')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Movie)])));
+    }
+    value = object.topRated;
+    if (value != null) {
+      result
+        ..add('topRated')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Movie)])));
+    }
+    value = object.upcoming;
+    if (value != null) {
+      result
+        ..add('upcoming')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Movie)])));
     }
     return result;
   }
@@ -39,9 +57,23 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'count':
-          result.count = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+        case 'popular':
+          result.popular.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Movie)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'topRated':
+          result.topRated.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Movie)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'upcoming':
+          result.upcoming.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Movie)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -52,12 +84,16 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
 
 class _$AppState extends AppState {
   @override
-  final int? count;
+  final BuiltList<Movie>? popular;
+  @override
+  final BuiltList<Movie>? topRated;
+  @override
+  final BuiltList<Movie>? upcoming;
 
   factory _$AppState([void Function(AppStateBuilder)? updates]) =>
       (new AppStateBuilder()..update(updates))._build();
 
-  _$AppState._({this.count}) : super._();
+  _$AppState._({this.popular, this.topRated, this.upcoming}) : super._();
 
   @override
   AppState rebuild(void Function(AppStateBuilder) updates) =>
@@ -69,20 +105,28 @@ class _$AppState extends AppState {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is AppState && count == other.count;
+    return other is AppState &&
+        popular == other.popular &&
+        topRated == other.topRated &&
+        upcoming == other.upcoming;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, count.hashCode);
+    _$hash = $jc(_$hash, popular.hashCode);
+    _$hash = $jc(_$hash, topRated.hashCode);
+    _$hash = $jc(_$hash, upcoming.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'AppState')..add('count', count))
+    return (newBuiltValueToStringHelper(r'AppState')
+          ..add('popular', popular)
+          ..add('topRated', topRated)
+          ..add('upcoming', upcoming))
         .toString();
   }
 }
@@ -90,18 +134,29 @@ class _$AppState extends AppState {
 class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   _$AppState? _$v;
 
-  int? _count;
-  int? get count => _$this._count;
-  set count(int? count) => _$this._count = count;
+  ListBuilder<Movie>? _popular;
+  ListBuilder<Movie> get popular =>
+      _$this._popular ??= new ListBuilder<Movie>();
+  set popular(ListBuilder<Movie>? popular) => _$this._popular = popular;
 
-  AppStateBuilder() {
-    AppState._initializeBuilder(this);
-  }
+  ListBuilder<Movie>? _topRated;
+  ListBuilder<Movie> get topRated =>
+      _$this._topRated ??= new ListBuilder<Movie>();
+  set topRated(ListBuilder<Movie>? topRated) => _$this._topRated = topRated;
+
+  ListBuilder<Movie>? _upcoming;
+  ListBuilder<Movie> get upcoming =>
+      _$this._upcoming ??= new ListBuilder<Movie>();
+  set upcoming(ListBuilder<Movie>? upcoming) => _$this._upcoming = upcoming;
+
+  AppStateBuilder();
 
   AppStateBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _count = $v.count;
+      _popular = $v.popular?.toBuilder();
+      _topRated = $v.topRated?.toBuilder();
+      _upcoming = $v.upcoming?.toBuilder();
       _$v = null;
     }
     return this;
@@ -122,7 +177,28 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   AppState build() => _build();
 
   _$AppState _build() {
-    final _$result = _$v ?? new _$AppState._(count: count);
+    _$AppState _$result;
+    try {
+      _$result = _$v ??
+          new _$AppState._(
+              popular: _popular?.build(),
+              topRated: _topRated?.build(),
+              upcoming: _upcoming?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'popular';
+        _popular?.build();
+        _$failedField = 'topRated';
+        _topRated?.build();
+        _$failedField = 'upcoming';
+        _upcoming?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'AppState', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
