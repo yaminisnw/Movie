@@ -3,6 +3,7 @@ import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:movie/core/services/api_services.dart';
 import 'package:movie/core/services/app_service.dart';
 import 'package:movie/model/movie.dart';
+import 'package:movie/model/movie_details.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import '../core/api/api_client.dart';
@@ -40,6 +41,10 @@ class AppViewModel extends AppStateNotifier<AppState>
     state = state.rebuild((p0) => p0.popular=results?.toBuilder()) ;
 
 
+  }
+  Future<void> getMovieDetails({required String movieId}) async{
+    final MovieDetails m = await _apiservice.getMovieDetails(movieId: movieId);
+    state = state.rebuild((p0) => p0.movieDetails=m.toBuilder());
   }
 
 }

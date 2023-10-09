@@ -9,6 +9,7 @@ part of 'serializers.dart';
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AppState.serializer)
       ..add(Movie.serializer)
+      ..add(MovieDetails.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Movie)]),
           () => new ListBuilder<Movie>())

@@ -64,54 +64,56 @@ class _HomePageState extends State<HomePage> {
             ])),
         body: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: 3,
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
               childAspectRatio: 1.5,
-            ),itemCount: popularMovies?.length??0,
+            ),
+            itemCount: popularMovies?.length ?? 0,
             itemBuilder: (BuildContext, index) {
               final movie = popularMovies![index];
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all( 5.0),
-                    child: Container(
-                        height: 90,
-                        width: 150,
+              return Container(
+                height: 150,
+                width: 100,
+                padding: const EdgeInsets.all(0.05),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        height: 50,
+                        width: 120,
                         child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ContentPage(),),);
-                            },
-                            child:Image.network('https://image.tmdb.org/t/p/original${movie.posterPath}',fit: BoxFit.fill,))),
-                  ),
-                  Column(
-                    children: [
-                      Text(movie.title),
-                    ],
-                  ),
-                ],
+                          onTap: ()  {
+                             Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ContentPage(
+                                  //ContentPage contents must be loaded before calling the contentPage
+                                  movieDetails: movie,
+                                ),
+                              ),
+                            );print('MovieTesting');
+                          },
+                          child: Image.network(
+                            'https://image.tmdb.org/t/p/original${movie.posterPath}',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      child: Text(
+                        movie.originalTitle!,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      width: 150,
+                    ),
+                  ],
+                ),
               );
             }),
       ),
     );
   }
 }
-
-/*for(int i =0;i<10;i++)
-final movie = popularMovies[i];
-[Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(height: 50,width: 50,child:GestureDetector(onTap:(){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ContentPage()
-                    ));
-                  },child:Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg-3382ZgdUhzsOz0VYE8KVNtX_HTwTxRSps08Nli1&s'))),
-                ),
-                Text('The Super Mario Bros'),
-              ],
-            ),
- */

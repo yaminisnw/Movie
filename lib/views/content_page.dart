@@ -1,47 +1,107 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie/model/movie_details.dart';
 import 'package:movie/ui.dart';
 
+import '../model/movie.dart';
+
 class ContentPage extends StatelessWidget {
-  const ContentPage({super.key});
+  ContentPage({
+    super.key,
+    required this.movieDetails,
+  });
+
+  final Movie movieDetails;
 
   @override
   Widget build(BuildContext context) {
+    //final appState = context.appState;
     return AppScaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(width: double.infinity,
+      body: Column(
+        children: [
+          Stack(children: <Widget>[
+            Container(
+              height: 300,
+              width: 500,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Image.network(
-                    'https://i0.wp.com/cornellsun.com/wp-content/uploads/2023/04/02-smb-dm-mobile-banner-1080x745-pl-f01-022723-63fe3cbc4df54-1.jpg?fit=1080%2C720&ssl=1'),
-              ),
-              Container(width: double.infinity,
-                child: Row(
-                  children: [
-                    RichText(
-                        text: TextSpan(
-                            text: "Synopsis",
-                            style:
-                            TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text:
-                                  " \n\ While working underground to fix the water main,Brooklyn plumbers-and brothers-Mario and Luigi are transported down a mysterious pipe and wander into a magical new world.But when the brothers are seperated,Mario embarks on an epic quest to find Luigi")
-                            ])),
-                  ],
+                  movieDetails.imageUrl,
+                  fit: BoxFit.fill,
                 ),
               ),
-              Container(child:Row(
+            ),
+            Positioned(
+              bottom: 10,
+              left: 20,
+              child: Container(
+                  height: 50,
+                  child: Text(
+                    movieDetails.title!,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                  )),
+            ),
+          ]),
+          Column(
+            children: [
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Synopsis',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+                    ),
+                  )),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  movieDetails.overview!,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+              Column(
                 children: [
-                  RichText(text: TextSpan(text: "Cast",
-                      style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold)),),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'About',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 40),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text('Original Title:${movieDetails.originalTitle}'),
+                            Text('Status:${movieDetails.status}'),
+                            Text('Runtime:${movieDetails.runtime}'),
+                            //Text('Premiere:${movieDetails.p}'),
+                            Text('Budget:${movieDetails.budget}'),
+                            Text('Revenue:${movieDetails.revenue}'),
+                            Text('Imdb:${movieDetails.imdb}'),
+                            Text('Vote Rating:${movieDetails.voteRating}'),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
                 ],
-              ),),
-              Container(child:Row(mainAxisAlignment:MainAxisAlignment.spaceAround,children: [Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM5VuXExf3RpJpzIZZmfHPS8yPem5JtlHVHg&usqp=CAU',width: 100,height: 100,),Text('Chris Pratt'),
-                Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjs0rwdxhkKhxLxBpYqQKbW3Huzp0dTJrORw&usqp=CAU',width: 100,height: 100),Text('Anya Taylor-Joy')],),)
-        ],),),);
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
-
 }

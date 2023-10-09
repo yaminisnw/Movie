@@ -27,6 +27,13 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Movie)])));
     }
+    value = object.movieDetails;
+    if (value != null) {
+      result
+        ..add('movieDetails')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(MovieDetails)));
+    }
     value = object.topRated;
     if (value != null) {
       result
@@ -63,6 +70,10 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
                       const FullType(BuiltList, const [const FullType(Movie)]))!
               as BuiltList<Object?>);
           break;
+        case 'movieDetails':
+          result.movieDetails.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MovieDetails))! as MovieDetails);
+          break;
         case 'topRated':
           result.topRated.replace(serializers.deserialize(value,
                   specifiedType:
@@ -86,6 +97,8 @@ class _$AppState extends AppState {
   @override
   final BuiltList<Movie>? popular;
   @override
+  final MovieDetails? movieDetails;
+  @override
   final BuiltList<Movie>? topRated;
   @override
   final BuiltList<Movie>? upcoming;
@@ -93,7 +106,8 @@ class _$AppState extends AppState {
   factory _$AppState([void Function(AppStateBuilder)? updates]) =>
       (new AppStateBuilder()..update(updates))._build();
 
-  _$AppState._({this.popular, this.topRated, this.upcoming}) : super._();
+  _$AppState._({this.popular, this.movieDetails, this.topRated, this.upcoming})
+      : super._();
 
   @override
   AppState rebuild(void Function(AppStateBuilder) updates) =>
@@ -107,6 +121,7 @@ class _$AppState extends AppState {
     if (identical(other, this)) return true;
     return other is AppState &&
         popular == other.popular &&
+        movieDetails == other.movieDetails &&
         topRated == other.topRated &&
         upcoming == other.upcoming;
   }
@@ -115,6 +130,7 @@ class _$AppState extends AppState {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, popular.hashCode);
+    _$hash = $jc(_$hash, movieDetails.hashCode);
     _$hash = $jc(_$hash, topRated.hashCode);
     _$hash = $jc(_$hash, upcoming.hashCode);
     _$hash = $jf(_$hash);
@@ -125,6 +141,7 @@ class _$AppState extends AppState {
   String toString() {
     return (newBuiltValueToStringHelper(r'AppState')
           ..add('popular', popular)
+          ..add('movieDetails', movieDetails)
           ..add('topRated', topRated)
           ..add('upcoming', upcoming))
         .toString();
@@ -138,6 +155,12 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   ListBuilder<Movie> get popular =>
       _$this._popular ??= new ListBuilder<Movie>();
   set popular(ListBuilder<Movie>? popular) => _$this._popular = popular;
+
+  MovieDetailsBuilder? _movieDetails;
+  MovieDetailsBuilder get movieDetails =>
+      _$this._movieDetails ??= new MovieDetailsBuilder();
+  set movieDetails(MovieDetailsBuilder? movieDetails) =>
+      _$this._movieDetails = movieDetails;
 
   ListBuilder<Movie>? _topRated;
   ListBuilder<Movie> get topRated =>
@@ -155,6 +178,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
     final $v = _$v;
     if ($v != null) {
       _popular = $v.popular?.toBuilder();
+      _movieDetails = $v.movieDetails?.toBuilder();
       _topRated = $v.topRated?.toBuilder();
       _upcoming = $v.upcoming?.toBuilder();
       _$v = null;
@@ -182,6 +206,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
       _$result = _$v ??
           new _$AppState._(
               popular: _popular?.build(),
+              movieDetails: _movieDetails?.build(),
               topRated: _topRated?.build(),
               upcoming: _upcoming?.build());
     } catch (_) {
@@ -189,6 +214,8 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
       try {
         _$failedField = 'popular';
         _popular?.build();
+        _$failedField = 'movieDetails';
+        _movieDetails?.build();
         _$failedField = 'topRated';
         _topRated?.build();
         _$failedField = 'upcoming';

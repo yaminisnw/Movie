@@ -1,21 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movie.dart';
+part of 'movie_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Movie> _$movieSerializer = new _$MovieSerializer();
+Serializer<MovieDetails> _$movieDetailsSerializer =
+    new _$MovieDetailsSerializer();
 
-class _$MovieSerializer implements StructuredSerializer<Movie> {
+class _$MovieDetailsSerializer implements StructuredSerializer<MovieDetails> {
   @override
-  final Iterable<Type> types = const [Movie, _$Movie];
+  final Iterable<Type> types = const [MovieDetails, _$MovieDetails];
   @override
-  final String wireName = 'Movie';
+  final String wireName = 'MovieDetails';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Movie object,
+  Iterable<Object?> serialize(Serializers serializers, MovieDetails object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
@@ -29,13 +30,6 @@ class _$MovieSerializer implements StructuredSerializer<Movie> {
     if (value != null) {
       result
         ..add('original_title')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.title;
-    if (value != null) {
-      result
-        ..add('title')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -110,9 +104,10 @@ class _$MovieSerializer implements StructuredSerializer<Movie> {
   }
 
   @override
-  Movie deserialize(Serializers serializers, Iterable<Object?> serialized,
+  MovieDetails deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new MovieBuilder();
+    final result = new MovieDetailsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -126,10 +121,6 @@ class _$MovieSerializer implements StructuredSerializer<Movie> {
           break;
         case 'original_title':
           result.originalTitle = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'title':
-          result.title = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'poster_path':
@@ -179,13 +170,11 @@ class _$MovieSerializer implements StructuredSerializer<Movie> {
   }
 }
 
-class _$Movie extends Movie {
+class _$MovieDetails extends MovieDetails {
   @override
   final int? id;
   @override
   final String? originalTitle;
-  @override
-  final String? title;
   @override
   final String? posterPath;
   @override
@@ -207,13 +196,12 @@ class _$Movie extends Movie {
   @override
   final String? overview;
 
-  factory _$Movie([void Function(MovieBuilder)? updates]) =>
-      (new MovieBuilder()..update(updates))._build();
+  factory _$MovieDetails([void Function(MovieDetailsBuilder)? updates]) =>
+      (new MovieDetailsBuilder()..update(updates))._build();
 
-  _$Movie._(
+  _$MovieDetails._(
       {this.id,
       this.originalTitle,
-      this.title,
       this.posterPath,
       this.backdropPath,
       this.status,
@@ -227,19 +215,18 @@ class _$Movie extends Movie {
       : super._();
 
   @override
-  Movie rebuild(void Function(MovieBuilder) updates) =>
+  MovieDetails rebuild(void Function(MovieDetailsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MovieBuilder toBuilder() => new MovieBuilder()..replace(this);
+  MovieDetailsBuilder toBuilder() => new MovieDetailsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Movie &&
+    return other is MovieDetails &&
         id == other.id &&
         originalTitle == other.originalTitle &&
-        title == other.title &&
         posterPath == other.posterPath &&
         backdropPath == other.backdropPath &&
         status == other.status &&
@@ -257,7 +244,6 @@ class _$Movie extends Movie {
     var _$hash = 0;
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, originalTitle.hashCode);
-    _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, posterPath.hashCode);
     _$hash = $jc(_$hash, backdropPath.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
@@ -274,10 +260,9 @@ class _$Movie extends Movie {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'Movie')
+    return (newBuiltValueToStringHelper(r'MovieDetails')
           ..add('id', id)
           ..add('originalTitle', originalTitle)
-          ..add('title', title)
           ..add('posterPath', posterPath)
           ..add('backdropPath', backdropPath)
           ..add('status', status)
@@ -292,8 +277,9 @@ class _$Movie extends Movie {
   }
 }
 
-class MovieBuilder implements Builder<Movie, MovieBuilder> {
-  _$Movie? _$v;
+class MovieDetailsBuilder
+    implements Builder<MovieDetails, MovieDetailsBuilder> {
+  _$MovieDetails? _$v;
 
   int? _id;
   int? get id => _$this._id;
@@ -303,10 +289,6 @@ class MovieBuilder implements Builder<Movie, MovieBuilder> {
   String? get originalTitle => _$this._originalTitle;
   set originalTitle(String? originalTitle) =>
       _$this._originalTitle = originalTitle;
-
-  String? _title;
-  String? get title => _$this._title;
-  set title(String? title) => _$this._title = title;
 
   String? _posterPath;
   String? get posterPath => _$this._posterPath;
@@ -348,14 +330,13 @@ class MovieBuilder implements Builder<Movie, MovieBuilder> {
   String? get overview => _$this._overview;
   set overview(String? overview) => _$this._overview = overview;
 
-  MovieBuilder();
+  MovieDetailsBuilder();
 
-  MovieBuilder get _$this {
+  MovieDetailsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _id = $v.id;
       _originalTitle = $v.originalTitle;
-      _title = $v.title;
       _posterPath = $v.posterPath;
       _backdropPath = $v.backdropPath;
       _status = $v.status;
@@ -372,25 +353,24 @@ class MovieBuilder implements Builder<Movie, MovieBuilder> {
   }
 
   @override
-  void replace(Movie other) {
+  void replace(MovieDetails other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Movie;
+    _$v = other as _$MovieDetails;
   }
 
   @override
-  void update(void Function(MovieBuilder)? updates) {
+  void update(void Function(MovieDetailsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  Movie build() => _build();
+  MovieDetails build() => _build();
 
-  _$Movie _build() {
+  _$MovieDetails _build() {
     final _$result = _$v ??
-        new _$Movie._(
+        new _$MovieDetails._(
             id: id,
             originalTitle: originalTitle,
-            title: title,
             posterPath: posterPath,
             backdropPath: backdropPath,
             status: status,

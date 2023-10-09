@@ -5,6 +5,7 @@ import 'package:movie/model/movie.dart';
 
 import '../core/api/api_client.dart';
 import '../core/services/api_services.dart';
+import '../model/movie_details.dart';
 import 'api_client_impl.dart';
 
 class _ApiUrls {
@@ -21,6 +22,8 @@ class _ApiUrls {
   String get getTopRated => '$baseUrl/movie/top_rated';
 
   String get getUpcoming => '$baseUrl/movie/upcoming';
+
+  String? get getMovieDetails => null;
 }
 
 extension _UrlUtils on String {
@@ -69,7 +72,37 @@ class ApiServiceImpl implements ApiService {
   }
 
   @override
+  Future <MovieDetails> getMovieDetails({required String movieId}) async{
+    try {
+      final Response response = await _client.get(
+        Uri.parse('${_urls.getMovieDetails}/$movieId'),
+        headers: {'Authorization': 'Bearer $apiToken'},
+      );
+      if (response.isSuccess) {
+        return MovieDetails.fromJson(response.jsonMap ?? {});
+        }
+      throw 'Error';
+      }
+      catch(e){rethrow;
+    }
+    }
+
+  @override
   Future<BuiltList<Movie?>> getTopRated() {
+    // TODO: implement getTopRated
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<BuiltList<Movie>> getUpcoming() {
+    // TODO: implement getUpcoming
+    throw UnimplementedError();
+  }
+  }
+
+
+  @override
+  Future<BuiltList<Movie?>> getTopRated() async{
     // TODO: implement getTopRated
     throw UnimplementedError();
   }
@@ -89,4 +122,4 @@ class ApiServiceImpl implements ApiService {
   Future<BuiltList<Movie>> getUpcoming() async{
 
   }*/
-}
+

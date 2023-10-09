@@ -1,32 +1,33 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:movie/model/serializers.dart';
-part 'movie.g.dart';
 
-abstract class Movie implements Built<Movie, MovieBuilder> {
+part 'movie_details.g.dart';
 
+abstract class MovieDetails
+    implements Built<MovieDetails, MovieDetailsBuilder> {
+  MovieDetails._();
 
-  Movie._();
-  factory Movie([void Function(MovieBuilder) updates]) = _$Movie;
+  factory MovieDetails([void Function(MovieDetailsBuilder) updates]) =
+      _$MovieDetails;
 
   Map<String, dynamic> toJson() {
-    return serializers.serializeWith(Movie.serializer, this) as Map<String,dynamic>;
+    return serializers.serializeWith(MovieDetails.serializer, this)
+        as Map<String, dynamic>;
   }
 
-  static Movie fromJson(Map<String, dynamic> json) {
-    return serializers.deserializeWith(Movie.serializer, json)!;
+  static MovieDetails fromJson(Map<String, dynamic> json) {
+    return serializers.deserializeWith(MovieDetails.serializer, json)!;
   }
 
-  static Serializer<Movie> get serializer => _$movieSerializer;
+  static Serializer<MovieDetails> get serializer => _$movieDetailsSerializer;
 
+// object declaration for the movieDetails that is need to be fetched from the browser
   int? get id;
 
 
   @BuiltValueField(wireName: 'original_title')
   String? get originalTitle;
-
-  String? get title;
 
   @BuiltValueField(wireName: 'poster_path')
   String? get posterPath;
@@ -54,5 +55,4 @@ abstract class Movie implements Built<Movie, MovieBuilder> {
   String? get releaseDate;
 
   String? get overview; //Synopsis
-
 }

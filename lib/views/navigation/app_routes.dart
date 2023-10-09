@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie/model/movie_details.dart';
 import 'package:movie/views/content_page.dart';
 
+import '../../model/movie.dart';
 import '../../ui.dart';
 import '../home_page.dart';
+
 
 
 part 'app_routes.g.dart';
@@ -20,8 +23,8 @@ final RouterConfig<Object> appRouter = GoRouter(
 @TypedGoRoute<HomePageRoute>(
   path: '/',
   routes: [
-  /*  TypedGoRoute<ProfilePageRoute>(
-      path: 'profile/:id',
+   /*TypedGoRoute<ProfilePageRoute>(
+      path: '/profile/:id',
     )*/
   ],
 )
@@ -33,40 +36,24 @@ class HomePageRoute extends GoRouteData {
   }
 }
 
-///Content Page
-@TypedGoRoute<ContentPageRoute>(
-  path: '/content',
-  routes:[]
-)
 @immutable
-class ContentPageRoute extends GoRouteData{
-  const ContentPageRoute({
-    required this.id,
-});
-  final int id;
-  @override
-  Widget build(BuildContext context,GoRouterState state){
-    print(id);
-    return const ContentPage();
-  }
-}
-
-/*@immutable
 class ProfilePageRoute extends GoRouteData {
   const ProfilePageRoute({
     required this.id,
   });
 
-  final int id;
+  final Movie id;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     print(id);
-    return const ProfilePage();
+    return ContentPage(movieDetails: id);
   }
 }
 
-@TypedGoRoute<TermsPageRoute>(
+
+
+/*@TypedGoRoute<TermsPageRoute>(
   path: '/terms',
 )
 @immutable
